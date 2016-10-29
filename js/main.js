@@ -1,6 +1,15 @@
 var imgData = null;
 var app = angular.module('scrapp', ['ngAnimate']).controller('scrcontroller', function($scope, $http) {
     $scope.scrapbloo = 'None yet!';
+    $scope.notYetHinted = false;
+    if (!localStorage.scrapImageHasHinted) {
+        $scope.notYetHinted = true;
+    }
+    $scope.gotHint = function() {
+        $scope.notYetHinted = false;
+        localStorage.scrapImageHasHinted = true;
+        $scope.$apply();
+    }
     var pik = document.createElement('img');
     $scope.showHelp = false;
     pik.crossOrigin = 'Anonymous';

@@ -9,7 +9,7 @@
 <body ng-app='scrapp' ng-controller='scrcontroller' ng-cloak>
     <div class='panel panel-success col-md-6 col-md-offset-3'>
         <div class='panel-heading'>
-            <h3>Scrap Mechanic Image Maker <button class='btn btn-danger pull-right' title='Lolwat?' ng-click='showHelp=!showHelp'>?</button></h3>
+            <h3>Scrap Mechanic Image Maker <button class='btn btn-danger col-md-1 pull-right' title='Lolwat?' ng-click='showHelp=!showHelp;gotHint()'>?</button><div class='col-md-1 pull-right' id='hint' ng-click='gotHint()' ng-show='notYetHinted'>&#10170;</div></h3>
         </div>
         <div class='panel-body'>
             <div class='row'>
@@ -64,7 +64,7 @@
     </div>
     <div ng-show='showHelp' class='panel panel-primary col-md-6 col-md-offset-2' id='helpWin'>
         <div class='panel-heading'>
-            <h4>Help</h4></div>
+            <h3>Help</h3></div>
         <div class='panel-body'>
             <b>Instructions:</b>
             <div style='font-style:italic;color:#555;'>Scrap Mechanic Image Maker uses JavaScript to convert your images into Scrap Mechanic blueprints. Just follow the instructions below!</div>
@@ -75,7 +75,7 @@
             <ol>
                 <li>Find an image. It can be of anything, but remember that small-medium sized images are better (as they'll be less pixelated!).</li>
                 <li>Click that <button style='pointer-events:none'>Choose File</button> button below.</li>
-                <li>Adjust the image ratio (number of pixels per block) by clicking the blue magnifying glass <button class='btn btn-sm btn-info' style='pointer-events:none'>&#128269;</button>.</li>
+                <li>Adjust the image ratio (number of pixels per block)<sup>1</sup> by clicking the blue magnifying glass <button class='btn btn-sm btn-info' style='pointer-events:none'>&#128269;</button>.</li>
                 <li>Click <button class='btn btn-warning' style='pointer-events:none'>&#127912; Get Blueprint</button>.</li>
                 <li><span style='font-style:italic'>Wait!</span> For any image of any appreciable size, this can take a while!</li>
             </ol>
@@ -93,7 +93,8 @@
                 <li>Copy the contents of the Output box. </li>
                 <li>Replace the contents of <code>blueprint.json</code>, and save it.</li>
                 <li>Load your image in Scrap Mechanic</li>
-            </ol>
+            </ol><br/>
+            <small>1. Important note: due to the way the math works, certain picture ratios will produce a skewed image. If this happens, try increasing or decreasing the ratio by 1.</small>
             <hr>
             <div class='alert alert-info' ng-click='showCreds = !showCreds'>
             Credits (click to toggle)
