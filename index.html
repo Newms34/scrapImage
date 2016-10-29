@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <title>Scrap Mechanic Image Maker</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+
+<body ng-app='scrapp' ng-controller='scrcontroller' ng-cloak>
+    <div class='panel panel-success col-md-6 col-md-offset-3'>
+        <div class='panel-heading'>
+            <h3>Scrap Mechanic Image Maker <button class='btn btn-danger pull-right' title='Lolwat?' ng-click='showHelp=!showHelp'>?</button></h3>
+        </div>
+        <div class='panel-body'>
+            <div class='row'>
+                <h4>Get Image</h4>
+                <input class='btn btn-success' type="file" id='myFile' ng-model='theFiles' onchange="angular.element('#myFile').scope().loadImg()">
+            </div>
+            <hr>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <h4>Image  <button class='btn btn-info pull-right' ng-click='toggleInfo();' title='Toggle info display' ng-disabled='!imgLoaded'>&#128269;</button></h4>
+                    <!-- <img src="{{oldUrl}}" id='yourImg' /> -->
+                    <canvas width="0" height="0"></canvas>
+                </div>
+                <div class='col-md-5' id='imgStats'>
+                    <table class='table alert-info'>
+                        <tr>
+                            <td>Width</td>
+                            <td>{{imWd}}px</td>
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td>{{imHt}}px</td>
+                        </tr>
+                        <tr>
+                            <td>Ratio:</td>
+                            <td>
+                                <div class='col-md-3'>1 /</div>
+                                <input type="number" class='col-md-4' ng-model='imRat' />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+            <div class='row'>
+                <button class='btn btn-warning cent' ng-click='doBloop();'>&#127912; Get Blueprint</button>
+            </div>
+            <hr />
+            <div class='row'>
+                <h4>Output</h4>
+                <textarea onclick='$(this).select()' class='col-md-10' readonly>{{scrapbloo}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div ng-show='showHelp' class='panel panel-primary col-md-6 col-md-offset-2' id='helpWin'>
+        <div class='panel-heading'>
+            <h4>Help</h4></div>
+        <div class='panel-body'>
+            <b>Instructions:</b>
+            <div style='font-style:italic;color:#555;'>Scrap Mechanic Image Maker uses JavaScript to convert your images into Scrap Mechanic blueprints. Just follow the instructions below!</div>
+            <hr>
+            <div class='alert alert-info'>
+            Generating the blueprint:  
+            </div>
+            <ol>
+                <li>Find an image. It can be of anything, but remember that small-medium sized images are better (as they'll be less pixelated!).</li>
+                <li>Click that <button style='pointer-events:none'>Choose File</button> button below.</li>
+                <li>Adjust the image ratio (number of pixels per block) by clicking the blue magnifying glass <button class='btn btn-sm btn-info' style='pointer-events:none'>&#128269;</button>.</li>
+                <li>Click <button class='btn btn-warning' style='pointer-events:none'>&#127912; Get Blueprint</button>.</li>
+                <li><span style='font-style:italic'>Wait!</span> For any image of any appreciable size, this can take a while!</li>
+            </ol>
+            <hr>
+            <div class='alert alert-info'>
+            Loading the blueprint in Scrap Mechanic: 
+            </div>
+            <ol start=6>
+                <li>Make (or download) a creation that you're okay deleting. Anything works, as long as it's saved on your machine. You can leave Scrap Mechanic open while you do the rest of this.</li>
+                <li>Open a folder (or Windows Explorer), and in the address bar, type <code>&#128194;%appData%</code></li>
+                <li>Look for an <code>&#128194;Axolot Games</code> folder. Go in there, then <code>&#128194;Scrap Mechanic</code>, <code>&#128194;User</code>, and finally <code>&#128194;User_xxxxxxx</code> (where xxxxxxx is some random-looking number). This is where your info's stored (so, ya know, <span class='text-danger'>be careful!</span>).</li>
+                <li>Go into the <code>&#128194;Blueprints</code> folder. Here are all the creations you've saved/downloaded. Unfortunately, the folder names aren't terribly helpful, so instead, you can probably assume that the most recently modified folder is the one you want. Right-click and click "Sort by &rightarrow; Date Modified", then pick the first folder.</li>
+                <li>You should see three files: the <code>icon.png</code> (which is irrelevant for us), the <code>description.json</code>, which holds just descriptive info (like what you called it, your description, etc.), and the <code>blueprint.json</code>. The last one's the one we want</li>
+                <li>Open <code>blueprint.json</code> in your favorite plain text editor (that means <span style='font-style:italic'>not</span> MS Word, WordPad, Google Docs, Open Office, or any other word processor with formatted text!).</li>
+                <li>Copy the contents of the Output box. </li>
+                <li>Replace the contents of <code>blueprint.json</code>, and save it.</li>
+                <li>Load your image in Scrap Mechanic</li>
+            </ol>
+            <hr>
+            <div class='alert alert-info' ng-click='showCreds = !showCreds'>
+            Credits (click to toggle)
+          
+            </div>
+              <div ng-if='showHelp && showCreds'>
+              The following contributed to this app:
+
+              <ul>
+                <li>I, <a href="https://github.com/Newms34" target="_blank">Newms34</a> did all the coding stuffs.</li>
+                <li>AngularJS from the brilliant dudes at Google</li>
+                <li><code>ng-Animate</code> tutorial from <a href="https://scotch.io/tutorials/animating-angular-apps-ngshow-and-nghide">Scotch.io</a></li>
+                <li>And of course the amazing game Scrap Mechanic, from the dudes at Axolot Games!</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
