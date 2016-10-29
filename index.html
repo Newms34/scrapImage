@@ -36,16 +36,24 @@
                         <tr>
                             <td>Ratio:</td>
                             <td>
-                                <div class='col-md-3'>1 /</div>
-                                <input type="number" class='col-md-4' ng-model='imRat' />
+                                <div class='col-md-4'>1 /</div>
+                                <input type="number" min=1 class='col-md-6' ng-model='imRat' />
                             </td>
+                        </tr>
+                        <tr>
+                            <td>Final Creation Width</td>
+                            <td>{{trunc(imWd/imRat)}} blocks</td>
+                        </tr>
+                        <tr>
+                            <td>Final Creation Height</td>
+                            <td>{{trunc(imHt/imRat)}} blocks</td>
                         </tr>
                     </table>
                 </div>
             </div>
             <hr/>
             <div class='row'>
-                <button class='btn btn-warning cent' ng-click='doBloop();'>&#127912; Get Blueprint</button>
+                <button class='btn btn-warning cent' ng-click='doBloop();' ng-disabled='!imgLoaded'>&#127912; Get Blueprint</button>
             </div>
             <hr />
             <div class='row'>

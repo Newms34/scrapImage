@@ -5,14 +5,13 @@ var app = angular.module('scrapp', ['ngAnimate']).controller('scrcontroller', fu
     $scope.showHelp = false;
     pik.crossOrigin = 'Anonymous';
     $scope.statsShow = true;
+    $scope.trunc = function(n) {
+        return parseInt(n)
+    };
     $scope.imRat = 6;
     $scope.toggleInfo = function() {
         $scope.statsShow = !$scope.statsShow;
         if ($scope.statsShow) {
-            // if (!pik.complete || (pik.naturalWidth !== "undefined" && pik.naturalWidth == 0)) {
-            //     $scope.statsShow = false;
-            //     return;
-            // }
             $('#imgStats').show();
         } else {
             $('#imgStats').hide();
@@ -87,6 +86,7 @@ var app = angular.module('scrapp', ['ngAnimate']).controller('scrcontroller', fu
             }
 
         }
+
         var str = '{"bodies": [{"childs": [';
         var allChunks = [];
         var currX = 0,
@@ -136,7 +136,6 @@ var app = angular.module('scrapp', ['ngAnimate']).controller('scrcontroller', fu
     $scope.canvImg = new Image(); //we're copying image to create a 'local' copy of it
     $scope.ctx = $scope.canv.getContext("2d");
     $scope.canvImg.addEventListener("load", function() {
-        console.log('loaded local version of image. drawin to canvas', this)
         $scope.ctx.drawImage($scope.canvImg, 0, 0);
     });
     $scope.loadImg = function() {
@@ -146,12 +145,10 @@ var app = angular.module('scrapp', ['ngAnimate']).controller('scrcontroller', fu
 
         reader.addEventListener("load", function() {
             $scope.imgLoaded = true;
-            console.log(reader)
             pik.src = reader.result;
             localStorage.setItem("savedImageData", reader.result);
             $scope.imHt = pik.height;
             $scope.imWd = pik.width;
-            console.log('PIK', pik)
             $scope.canv.width = $scope.imWd;
             $scope.canv.height = $scope.imHt;
             $scope.ctx.fillStyle = '#ffffff';
